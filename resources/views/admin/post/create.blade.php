@@ -35,7 +35,7 @@
                   <input type="text" class="form-control" id="id_title" name="title" placeholder="Enter the title" value={{old('title')}}>
                   @error('title')
                       <div class="text-danger">
-                        This field is required
+                        {{$message}}
                       </div>
                   @enderror
                 </div>
@@ -47,7 +47,7 @@
                   </form>
                   @error('content')
                       <div class="text-danger">
-                        This field is required
+                        {{$message}}
                       </div>
                   @enderror
                 </div>
@@ -61,7 +61,7 @@
                   </div>
                   @error('preview_image')
                       <div class="text-danger">
-                        This field is required
+                        {{$message}}
                       </div>
                   @enderror
                 </div>
@@ -75,7 +75,7 @@
                   </div>
                   @error('main_image')
                       <div class="text-danger">
-                        This field is required
+                        {{$message}}
                       </div>
                   @enderror
                 </div>
@@ -89,6 +89,11 @@
                            >{{$category->name}}</option>
                       @endforeach
                     </select>
+                    @error('category_id')
+                      <div class="text-danger">
+                        {{$message}}
+                      </div>
+                    @enderror
                   </div>
 
                   <div class="form-group col-6">
@@ -100,6 +105,11 @@
                           >{{$tag->name}}</option>
                       @endforeach
                     </select>
+                    @error('tag_ids')
+                      <div class="text-danger">
+                        {{$message}}
+                      </div>
+                    @enderror
                   </div>
                 </div>
                 <div class="form-group">
