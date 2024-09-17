@@ -41,6 +41,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      
       <!-- Navbar Search -->
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -70,6 +71,15 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+
+      <!-- Logout -->
+    <li class="nav-item">
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <input type="submit" value="Logout" class="btn btn-primary">
+      </form>
+    </li>
+    
     </ul>
   </nav>
   <!-- /.navbar -->

@@ -11,7 +11,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -48,5 +47,15 @@ class User extends Authenticatable
 
     public function roles(){
         return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
+    }
+
+    public function hasRole($roles){
+        $userRoles = $this->roles()->pluck('name')->toArray();
+        foreach ($roles as $role) {
+            if (in_array($role, $userRoles)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

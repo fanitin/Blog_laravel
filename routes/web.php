@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,7 +11,7 @@ Route::namespace("App\Http\Controllers\Main")->name("main.")->group(function () 
 });
 
 
-Route::namespace("App\Http\Controllers\Admin")->prefix("admin")->name("admin.")->group( function() {
+Route::middleware(['auth', AdminMiddleware::class])->namespace("App\Http\Controllers\Admin")->prefix("admin")->name("admin.")->group( function() {
     Route::namespace("Main")->group(function () {
         Route::get("/", "IndexController")->name("index");
     });
