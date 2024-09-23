@@ -14,7 +14,7 @@
           <img src="{{ asset("dist/img/user2-160x160.jpg") }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="{{route('personal.index')}}" class="d-block">{{$userMe->name}}</a>
         </div>
       </div>
 
@@ -36,6 +36,14 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
+                <a href="{{route('admin.user.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-user"></i>
+                  <p>
+                    Users
+                  </p>
+                </a>
+              </li>
+               <li class="nav-item">
                  <a href="{{route('admin.post.index')}}" class="nav-link">
                    <i class="nav-icon fas fa-solid fa-newspaper"></i>
                    <p>
@@ -56,14 +64,6 @@
                   <i class="nav-icon fas fa-solid fa-tags"></i>
                   <p>
                     Tags
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.user.index')}}" class="nav-link">
-                  <i class="nav-icon fas fa-solid fa-user"></i>
-                  <p>
-                    Users
                   </p>
                 </a>
               </li>

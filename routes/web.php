@@ -4,13 +4,36 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
-Auth::routes();
+Auth::routes();               # ['verify' => true] to verify email
 
 Route::namespace("App\Http\Controllers\Main")->name("main.")->group(function () {
     Route::get("/", "IndexController")->name("index");
 });
 
+Route::namespace("App\Http\Controllers\Post")->name("post.")->prefix('post')->group(function () {
+    Route::get("/", "IndexController")->name("index");
+    Route::get("/{post}", "ShowController")->name("show");
+});
 
+
+Route::middleware(['auth'])->namespace("App\Http\Controllers\Personal")->prefix("personal")->name("personal.")->group( function() {
+    Route::namespace("Main")->group(function () {
+        Route::get("/", "IndexController")->name("index");
+    });
+    Route::namespace("Liked")->prefix("liked")->name("liked.")->group(function () {
+        Route::get("/", "IndexController")->name("index");
+        Route::delete("/{post}", "DeleteController")->name("delete");
+    });
+    Route::namespace("Comment")->prefix("comment")->name("comment.")->group(function () {
+        Route::get("/", "IndexController")->name("index");
+        Route::delete("/{post}", "DeleteController")->name("delete");
+        Route::get("/{comment}/edit", "EditController")->name("edit");
+        Route::patch("/{comment}", "UpdateController")->name("update");
+    });
+});
+
+
+#Route::middleware(['auth', AdminMiddleware::class, 'verified']) to verify email
 Route::middleware(['auth', AdminMiddleware::class])->namespace("App\Http\Controllers\Admin")->prefix("admin")->name("admin.")->group( function() {
     Route::namespace("Main")->group(function () {
         Route::get("/", "IndexController")->name("index");

@@ -51,12 +51,16 @@
                       <td>{{$post->content}}</td>
                     </tr>
                     <tr>
-                      <td>Creation date</td>
-                      <td>{{$post->created_at}}</td>
+                      <td>Tags</td>
+                      <td>
+                        @foreach ($post->tags()->get()->toArray() as $tag)
+                        <span class="badge bg-primary">{{$tag['name']}}</span>
+                      @endforeach
+                      </td>
                     </tr>
                     <tr>
-                      <td>Last update</td>
-                      <td>{{$post->updated_at}}</td>
+                      <td>Category</td>
+                      <td>{{$post->category()->first()->name}}</td>
                     </tr>
                     <tr>
                       <td>Preview image</td>
@@ -65,6 +69,14 @@
                     <tr>
                       <td>Main image</td>
                       <td><img src="{{Storage::url($post->main_image)}}" alt="{{$post->title}}" class="w-100"></td>
+                    </tr>
+                    <tr>
+                      <td>Creation date</td>
+                      <td>{{$post->created_at}}</td>
+                    </tr>
+                    <tr>
+                      <td>Last update</td>
+                      <td>{{$post->updated_at}}</td>
                     </tr>
                   </tbody>
                 </table>

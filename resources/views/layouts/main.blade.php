@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blogg1 :: Home</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/font-awesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/aos/aos.css') }}">
@@ -17,18 +17,12 @@
     <header class="edica-header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="{{route("main.index")}}"><img src="{{ asset('assets/images/logo.svg') }}" alt="Edica"></a>
+                <a class="navbar-brand" href="{{route("main.index")}}"><img src="{{ asset('assets/images/logo.svg') }}" alt="ブログ"></a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#edicaMainNav" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="edicaMainNav">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route("main.index")}}">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#">About</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
                             <div class="dropdown-menu" aria-labelledby="blogDropdown">
@@ -36,25 +30,39 @@
                                 <a class="dropdown-item" href="blog-single.html">Blog Post</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                <a class="dropdown-item" href="404.html">404</a>
-                                <a class="dropdown-item" href="coming-soon.html">Coming Soon</a>
+                    </ul>
+                    <div class="dropdown" width="100px">
+                        @guest
+                            @if (Route::has('login'))
+                                <button class="btn btn-warning btn-as-link" onclick="window.location.href='{{ route('login') }}'">{{ __('Login') }}</button>
+                            @endif
+                            @if (Route::has('register'))
+                                <button onclick="window.location.href='{{ route('register') }}'" class="btn btn-primary btn-as-link">{{ __('Register') }}</button>
+                            @endif
+                        @else
+                            <a id="navbarDropdown" class="btn btn-warning rounded-3 mr-3 px-3 d-inline-block" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                                <span class="dropdown-toggle-icon"></span>
+                            </a>
+            
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->hasRole(['admin']))
+                                    <a href="{{ route('admin.index') }}" class="dropdown-item">Admin panel</a>
+                                @endif
+                                <a href="{{ route('personal.index') }}" class="dropdown-item">Profil</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+            
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><span class="flag-icon flag-icon-squared rounded-circle flag-icon-gb"></span> Eng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Download</a>
-                        </li>
-                    </ul>
+                        @endguest
+                    </div>
                 </div>
             </nav>
         </div>

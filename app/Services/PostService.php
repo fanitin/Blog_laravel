@@ -31,8 +31,8 @@ class PostService{
             abort(500);
         }
     }
-
-
+    
+    
     public function update($data, $post){
         try{
             DB::beginTransaction();
