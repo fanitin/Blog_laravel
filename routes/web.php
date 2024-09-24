@@ -13,6 +13,10 @@ Route::namespace("App\Http\Controllers\Main")->name("main.")->group(function () 
 Route::namespace("App\Http\Controllers\Post")->name("post.")->prefix('post')->group(function () {
     Route::get("/", "IndexController")->name("index");
     Route::get("/{post}", "ShowController")->name("show");
+
+    Route::namespace("Comment")->prefix("{post}/comments")->name("comment.")->group(function () {
+        Route::post("/", "StoreController")->name("store");
+    });
 });
 
 
