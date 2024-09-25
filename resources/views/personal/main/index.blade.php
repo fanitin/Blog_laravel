@@ -29,14 +29,14 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>000</h3>
+                  <h3>{{$data['likesCount']}}</h3>
   
                   <p>Liked posts</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-solid fa-thumbs-up"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('personal.liked.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -44,14 +44,14 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>000</h3>
+                  <h3>{{$data['commentsCount']}}</h3>
   
                   <p>Comments</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-solid fa-comments"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('personal.comment.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

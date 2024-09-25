@@ -14,7 +14,28 @@
                     <div class="blog-post-thumbnail-wrapper">
                         <img src="{{ 'storage/'.$post->preview_image }}" alt="blog post">
                     </div>
-                    <p class="blog-post-category">{{isset($post->category) ? $post->category->name : 'NO CATEGORY'}}</p>
+                    <div class="d-flex justify-content-between">
+                        <p class="blog-post-category">{{isset($post->category) ? $post->category->name : 'NO CATEGORY'}}</p>
+                        @auth
+                            <form action="{{ route('post.like.store', $post->id)}}" method="POST">
+                            @csrf
+                            <span>{{$post->likedUsers->count()}}</span>
+                            <button type="submit" class="border-0 bg-transparent">
+                                @if (auth()->user()->likedPosts->contains($post))
+                                    <i class="fas fa-solid fa-heart"></i>
+                                @else
+                                    <i class="far fa-regular fa-heart"></i>
+                                @endif
+                            </button>
+                        </form>
+                        @endauth
+                        @guest
+                        <div>
+                            <span>{{$post->likedUsers->count()}}</span>
+                            <i class="far fa-regular fa-heart"></i>
+                        </div>
+                        @endguest
+                    </div>
                     <a href="{{ route('post.show', $post->id)}}" class="blog-post-permalink">
                         <h6 class="blog-post-title">{{$post->title}}</h6>
                     </a>
@@ -37,7 +58,28 @@
                             <div class="blog-post-thumbnail-wrapper">
                                 <img src="{{'storage/'.$post->preview_image}}" alt="blog post">
                             </div>
-                            <p class="blog-post-category">{{isset($post->category) ? $post->category->name : 'NO CATEGORY'}}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="blog-post-category">{{isset($post->category) ? $post->category->name : 'NO CATEGORY'}}</p>
+                                @auth
+                                    <form action="{{ route('post.like.store', $post->id)}}" method="POST">
+                                    @csrf
+                                    <span>{{$post->likedUsers->count()}}</span>
+                                    <button type="submit" class="border-0 bg-transparent">
+                                        @if (auth()->user()->likedPosts->contains($post))
+                                            <i class="fas fa-solid fa-heart"></i>
+                                        @else
+                                            <i class="far fa-regular fa-heart"></i>
+                                        @endif
+                                    </button>
+                                </form>
+                                @endauth
+                                @guest
+                                <div>
+                                    <span>{{$post->likedUsers->count()}}</span>
+                                    <i class="far fa-regular fa-heart"></i>
+                                </div>
+                                @endguest
+                            </div>
                             <a href="{{ route('post.show', $post->id)}}" class="blog-post-permalink">
                                 <h6 class="blog-post-title">{{$post->title}}</h6>
                             </a>

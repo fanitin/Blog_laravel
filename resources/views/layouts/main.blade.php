@@ -30,6 +30,9 @@
                                 <a class="dropdown-item" href="blog-single.html">Blog Post</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('category.index')}}">Categories</a>
+                        </li>
                     </ul>
                     <div class="dropdown" width="100px">
                         @guest

@@ -10,11 +10,23 @@ Route::namespace("App\Http\Controllers\Main")->name("main.")->group(function () 
     Route::get("/", "IndexController")->name("index");
 });
 
+Route::namespace("App\Http\Controllers\Category")->name("category.")->prefix('categories')->group(function () {
+    Route::get("/", "IndexController")->name("index");
+
+    Route::namespace("Post")->prefix("{category}/posts")->name("post.")->group(function () {
+        Route::get("/", "IndexController")->name("index");
+    });
+});
+
 Route::namespace("App\Http\Controllers\Post")->name("post.")->prefix('post')->group(function () {
     Route::get("/", "IndexController")->name("index");
     Route::get("/{post}", "ShowController")->name("show");
 
     Route::namespace("Comment")->prefix("{post}/comments")->name("comment.")->group(function () {
+        Route::post("/", "StoreController")->name("store");
+    });
+
+    Route::namespace("Like")->prefix("{post}/likes")->name("like.")->group(function () {
         Route::post("/", "StoreController")->name("store");
     });
 });
