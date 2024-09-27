@@ -26,7 +26,7 @@
                         @auth
                             <form action="{{ route('post.like.store', $post->id)}}" method="POST">
                             @csrf
-                            <span>{{$post->likedUsers->count()}}</span>
+                            <span>{{ $post->liked_users_count }}</span>
                             <button type="submit" class="border-0 bg-transparent">
                                 @if (auth()->user()->likedPosts->contains($post))
                                     <i class="fas fa-solid fa-heart"></i>
@@ -38,7 +38,7 @@
                         @endauth
                         @guest
                         <div>
-                            <span>{{$post->likedUsers->count()}}</span>
+                            <span>{{ $post->liked_users_count }}</span>
                             <i class="far fa-regular fa-heart"></i>
                         </div>
                         @endguest
